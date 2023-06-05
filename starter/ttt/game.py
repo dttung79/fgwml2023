@@ -10,7 +10,7 @@ class TicTacToeGame:
         player.move(self.board)
         print(self.board)
 
-        if self.board.is_full() or self.board.who_win() != 0:
+        if self.board.is_full() or self.board.who_win() != -1:
             return True
         else:
             return False
