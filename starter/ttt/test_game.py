@@ -1,5 +1,5 @@
 from game import TicTacToeGame
-from player import Human, StupidBot
+from player import Human, SmartBot
 
-game = TicTacToeGame(Human(1, "Human"), StupidBot(2, "Bot"))
+game = TicTacToeGame(Human(1, "Human"), SmartBot(2, "Bot"))
 game.start()
