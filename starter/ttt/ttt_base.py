@@ -8,9 +8,9 @@ class TicTacToeNetworkBase:
         self.verbose = verbose
     
     def send_message(self, conn, message):
-        whites = ' ' * (BUFFER_SIZE - len(msg))
-        msg += whites
-        conn.send(msg.encode('utf8'))
+        whites = ' ' * (BUFFER_SIZE - len(message))
+        message += whites
+        conn.send(message.encode('utf8'))
     
     def send_move(self, conn, x, y, value):
         msg = f"{x},{y},{value}"
@@ -22,13 +22,13 @@ class TicTacToeNetworkBase:
 
     def receive_move(self, conn):
         msg = self.receive_message(conn)
-        x, y = msg.split(',')
-        return int(x), int(y)
+        x, y, value = msg.split(',')
+        return int(x), int(y), int(value)
 
-    def debug(self, *messges):
+    def debug(self, messge, prompt=''):
         if not self.verbose:
             return
-        for msg in messges:
-            print(msg)
-        if self._interact:
-            input('Press any key to continue...')
+        
+        print(messge)
+        if self.interact:
+            input(f'{prompt} Press any key to continue...')

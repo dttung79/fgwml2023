@@ -44,13 +44,18 @@ class TicTacToeServer(TicTacToeNetworkBase):
             # play
             is_over = False
             while not is_over:
-                is_over = self.play_turn(conn1, conn2, board)
+                is_over = self.play_turn(name1, conn1, name2, conn2, board)
                 if is_over:
                     break
-                is_over = self.play_turn(conn2, conn1, board)
+                is_over = self.play_turn(name2, conn2, name1, conn1, board)
             
             print('Game over')
-
+            if board.who_win() == 0:
+                print('Draw')
+            elif board.who_win() == 1:
+                print(f'{name1} win')
+            elif board.who_win() == 2:
+                print(f'{name2} win')
         except ConnectionResetError:
             print('Client disconnected')
         except Exception as e:
@@ -59,22 +64,20 @@ class TicTacToeServer(TicTacToeNetworkBase):
             conn1.close()
             conn2.close()
 
-    def play_turn(self, conn1, conn2, board):
-        # receive move
+    def play_turn(self, name1, conn1, name2, conn2, board):
+        # receive move from conn1
         x, y, value = self.receive_move(conn1)
-        self.debug(f"Move: {x},{y},{value}")
-        
-        # send move
-        self.send_move(conn2, x, y, value)
+        self.send_message(conn1, 'OPPONENT_TURN')
 
+        self.debug(f"{name1} move: {x},{y},{value}")
+        
+        # send conn1's move to conn2
+        self.send_move(conn2, x, y, value)
+        self.send_message(conn2, 'YOUR_TURN')
+
+        # update server board
         board.move(x, y, value)
+        self.debug(board)
         
         # check if game is over
-        if board.who_wins() != 0 or board.is_full():
-            self.send_message(conn1, 'END')
-            self.send_message(conn2, 'END')
-            return True
-        else:
-            self.send_message(conn2, 'YOUR_TURN')
-            self.send_message(conn1, 'OPPONENT_TURN')
-            return False
+        return board.who_win() != -1

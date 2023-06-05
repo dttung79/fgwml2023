@@ -27,8 +27,11 @@ class Cell:
             return "_"
         elif self.value == 1:
             return "X"
-        else:
+        elif self.value == 2:
             return "O"
+        else:
+            print('Invalid cell value:', self.value, type(self.value))
+            input('Press any key to continue...')
 
 class Board:
     def __init__(self):
@@ -43,10 +46,10 @@ class Board:
         return s
     
     def move(self, x, y, value):
-        self.board[y][x].Value = value
+        self.board[x][y].Value = value
     
     def get(self, x, y):
-        return self.board[y][x].Value
+        return self.board[x][y].Value
     
     def is_full(self):
         for row in self.board:
@@ -55,6 +58,11 @@ class Board:
                     return False
         return True
     
+    # Check if game is over and return the winner
+    # 1: X wins
+    # 2: O wins
+    # 0: draw
+    # -1: game is not over yet
     def who_win(self):
         for row in self.board:
             if row[0].Value == row[1].Value == row[2].Value != 0:
@@ -66,4 +74,6 @@ class Board:
             return self.board[0][0].Value
         if self.board[0][2].Value == self.board[1][1].Value == self.board[2][0].Value != 0:
             return self.board[0][2].Value
-        return 0
+        if self.is_full():
+            return 0    # draw
+        return -1       # game is not over yet

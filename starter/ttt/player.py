@@ -43,6 +43,7 @@ class StupidBot(Player):
                 break
 
         board.move(x, y, self.value)
+        return x, y
 
 class SmartBot(StupidBot):
     def __init__(self, value, name):
