@@ -1,12 +1,12 @@
 import socket
 from ttt_base import TicTacToeNetworkBase
-from player import SmartBot
+from player import SmartBot, StupidBot
 from board import Board
 
 class TicTacToeClient(TicTacToeNetworkBase):
     def __init__(self, player_name, player_move, host='127.0.0.1', port=12345, interact=False, verbose=False):
         super().__init__(host, port, interact, verbose)
-        self.player = SmartBot(int(player_move), player_name)
+        self.player = SmartBot(int(player_move), player_name, 'model_800k_2q_df.txt')
         self.board = Board()        
         self.socket = None
     

@@ -1,0 +1,15 @@
+800k games played
+SmartBot plays first. Wins: 955, Looses: 14, Draws: 31
+StupidBot plays first. Wins: 785, Looses: 73, Draws: 142
+
+8M games played
+SmartBot plays first. Wins: 943, Looses: 20, Draws: 37
+StupidBot plays first. Wins: 741, Looses: 90, Draws: 169
+
+800k games played, defense consecutive moves of opponent
+SmartBot plays first. Wins: 948, Looses: 20, Draws: 32
+StupidBot plays first. Wins: 728, Looses: 143, Draws: 129
+
+800k games played, defense consecutive moves of opponent, correct ALPHAS
+SmartBot plays first. Wins: 964, Looses: 15, Draws: 21
+StupidBot plays first. Wins: 783, Looses: 80, Draws: 137
